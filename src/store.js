@@ -1,6 +1,7 @@
 import { createStore, compose, applyMiddleware } from "redux";
 import rootReducer from "./reducers/index";
 import thunk from "redux-thunk";
+import { init } from "./reducers/auth";
 
 /* eslint-disable no-underscore-dangle */
 const composeEnhancers =
@@ -20,4 +21,4 @@ const configureStore = (preloadedState) =>
 
 const store = configureStore({});
 
-export default store;
+export default init(store);
