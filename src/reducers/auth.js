@@ -7,6 +7,8 @@ const REGISTRATION = `${namespace}/REGISTRATION`;
 const IS_LOAD = `${namespace}/IS_LOAD`;
 const SET_TOKEN = `${namespace}/SET_TOKEN`;
 
+export const RESET_AUTH = `${namespace}/RESET_AUTH`
+
 export const sendRegistration = createAction(REGISTRATION);
 export const isLoad = createAction(IS_LOAD);
 
@@ -28,6 +30,7 @@ export default handleActions(
       token: payload,
       authorization: !!payload,
     }),
+    [RESET_AUTH]: ()=>initialState
   },
   initialState
 );
@@ -71,9 +74,18 @@ function toLS(jwt) {
 
 export function init(store) {
   const token = localStorage.getItem("token");
-  if (token) {
+  if (token && setToken) {
     store.dispatch(setToken(token));
   }
 
   return store;
+}
+
+export function logout(){
+  return dispatch=>{
+    localStorage.removeItem("token")
+    dispatch({
+      type: RESET_AUTH
+    })
+  }
 }

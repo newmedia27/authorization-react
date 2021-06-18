@@ -1,7 +1,7 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { authorizationSelector } from "../../reducers/auth";
+import { authorizationSelector, logout } from "../../reducers/auth";
 
 import styles from "./header.module.sass";
 
@@ -43,8 +43,21 @@ function AuthLinks({ auth }) {
     return null;
   }
   return (
-    <li>
-      <Link to="/categories">Categories</Link>
-    </li>
+    <>
+      <li>
+        <Link to="/categories">Categories</Link>
+      </li>
+      <li>
+        <Logout />
+      </li>
+    </>
   );
+}
+
+function Logout() {
+  const dispatch = useDispatch();
+  const handleLogout = () => {
+    dispatch(logout());
+  };
+  return <button onClick={handleLogout}>Logout</button>;
 }

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   categoriesSelector,
@@ -15,12 +15,22 @@ const Categories = () => {
     dispatch(getCategoriesRequest());
   }, [getCategoriesRequest, dispatch]);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const data = { title: value };
-    dispatch(createCategoriesRequest(data));
-    setValue("");
-  };
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   const data = { title: value };
+  //   dispatch(createCategoriesRequest(data));
+  //   setValue("");
+  // };
+
+  const handleSubmit = useCallback(
+    (e) => {
+      e.preventDefault();
+      const data = { title: value };
+      dispatch(createCategoriesRequest(data));
+      setValue("");
+    },
+    [value, dispatch, createCategoriesRequest]
+  );
 
   return (
     <div>

@@ -21,8 +21,16 @@ export const categoriesSelector = (state) => state[namespace];
 export function getCategoriesRequest() {
   return async (dispatch) => {
     try {
-      const { data } = await getCategories();
-      dispatch(setCategories(data));
+      // ТАК НЕ ДЕЛАТЬ!!!!
+      // const response1 =  getCategories();
+      // const response2 =  getCategories();
+      // const response3 =  getCategories();
+
+    const [r1,r2,r3] = await Promise.all([getCategories(),getCategories(),getCategories()])
+      // console.log('response1 :>> ', response1);
+      // console.log('response2 :>> ', response2);
+      // console.log('response3 :>> ', response3);
+      // dispatch(setCategories(data));
     } catch (err) {
       console.log(err);
     }
